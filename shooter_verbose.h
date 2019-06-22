@@ -75,6 +75,11 @@ namespace verbose{
       long long int score = 0;
       bool playing = 1;
 
+      init_pair(1,COLOR_CYAN,COLOR_BLACK);
+      init_pair(2, COLOR_RED, COLOR_BLACK);
+      init_pair(3,COLOR_GREEN, COLOR_BLACK);
+      init_pair(4,COLOR_RED, COLOR_BLACK);
+
       vector<coordinates> bullets;
       vector<coordinates> lifelines;
       int userRowNumber = dimensions-1;
@@ -119,25 +124,28 @@ namespace verbose{
           utils::writeIntegerToDisplay(lives);
 
           move(5,1);
-
+          attron(COLOR_PAIR(2));
           utils::constructBase(dimensions);
+          attroff(COLOR_PAIR(2));
           attroff(A_BOLD);
 
           if(lives > 2){
 
-              attron(A_BOLD);
+              attron(A_BOLD | COLOR_PAIR(1));
               utils::writeToDisplayAtXY(userRowNumber+ROW_OFFSET,userPosition,".__.");
-              attroff(A_BOLD);
+              attroff(A_BOLD | COLOR_PAIR(1));
           }
           else if(lives > 1){
 
+              attron(COLOR_PAIR(1));
               utils::writeToDisplayAtXY(userRowNumber+ROW_OFFSET,userPosition,".__.");
+              attroff(COLOR_PAIR(1));
           }
           else{
 
-              attron(A_DIM);
+              attron(A_DIM | COLOR_PAIR(1));
               utils::writeToDisplayAtXY(userRowNumber+ROW_OFFSET,userPosition,".__.");
-              attroff(A_DIM);
+              attroff(A_DIM | COLOR_PAIR(1));
           }
 
           if(turn == 0)
@@ -149,11 +157,16 @@ namespace verbose{
           score += utils::cleanBulletVector(bullets, dimensions, lives, userPosition);
           utils::cleanLifeVector(lifelines,dimensions,lives,userPosition);
 
-          attron(A_BOLD);
+          attron(A_DIM);
           utils::constructBullets(bullets,ROW_OFFSET);
+          attroff(A_DIM);
+          attron(A_BOLD);
+          attron(COLOR_PAIR(3));
           utils::constructLives(lifelines,ROW_OFFSET);
+          attroff(COLOR_PAIR(3));
           attroff(A_BOLD);
 
+          attron(COLOR_PAIR(4));
           if(dialogue_skip == 0){
 
               dialogues::displaySpeaks(ROW_OFFSET + dimensions + 4,1);
@@ -164,6 +177,7 @@ namespace verbose{
               dialogues::displaySpeaks(ROW_OFFSET + dimensions + 4,0);
               dialogue_skip++;
           }
+          attroff(COLOR_PAIR(4));
 
           curs_set(0);
 

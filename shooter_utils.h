@@ -19,6 +19,7 @@ namespace utils{
           initscr();
           raw();
           noecho();
+          start_color();
     }
 
     void writeToDisplay(const char *textToWrite){
@@ -287,7 +288,7 @@ namespace utils{
 
         for(int i=0;i<bullets.size();i++){
 
-            writeToDisplayAtXY(bullets[i].x + ROW_OFFSET,(bullets[i].y*4)-1,"\\/");
+            writeToDisplayAtXY(bullets[i].x + ROW_OFFSET,(bullets[i].y*4)-1,"V");
         }
     }
 

@@ -68,6 +68,8 @@ namespace dialogues{
 
         currentDialogue = i;
 
+        init_pair(7,COLOR_RED,COLOR_BLACK);
+
         attron(A_DIM);
 
         mvprintw(rowDisplay,1,base);
@@ -81,9 +83,9 @@ namespace dialogues{
 
         attroff(A_DIM);
 
-        attron(A_BOLD | A_BLINK);
+        attron(A_BOLD);
         mvprintw(rowDisplay+2,(80-strlen(temp))/2,temp);
-        attron(A_BOLD | A_BLINK);
+        attron(A_BOLD);
 
         i++;
 
